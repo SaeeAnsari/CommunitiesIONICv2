@@ -54,19 +54,53 @@ export class Login {
     this.fb.login(['public_profile', 'user_friends', 'email'])
       .then((res: FacebookLoginResponse) => {
 
+        let userID= "0";
 
-        this.err.logError('Login FB Logged in').subscribe();
+        if(res!= null){
+          console.log('Logged into Facebook!', JSON.stringify(res));
 
-        console.log('Logged into Facebook!', res);
+          userID = res.authResponse.userID;
+
+          console.log('userID found ', JSON.stringify(res));
+
+          this.getFacebookUserDetails(userID);
+        }
+
+
+
+
+        
+       
         sessionStorage.setItem('userID', '1');
         this.ionViewDidLoad();
       })
       .catch(e => {
+        console.log('Login FB Failed + ' + JSON.stringify(e));
         this.err.logError('Login FB Failed + ' + JSON.stringify(e)).subscribe()
       });
 
+    this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
+  }
 
-    //this.fb.logEvent(this.fb.EVENTS.EVENT_NAME_ADDED_TO_CART);
+  getFacebookUserDetails(userID: string) {
+
+    let permissions: string[] = [];
+
+    permissions.push('id');
+    permissions.push('name');
+    permissions.push('email');
+    permissions.push('picture');
+    permissions.push('gender');
+    permissions.push('first_name');
+    permissions.push('last_name');
+
+
+    this.fb.api('https://graph.facebook.com/v2.9/'+ userID, permissions).then(res => {
+      console.log('User details : ' + JSON.stringify(res));
+    })
+      .catch(e => {
+        this.err.logError('Login FB GetFaceboolUserDetails Failed + ' + JSON.stringify(e)).subscribe();
+      })
   }
 
   loginClicked() {

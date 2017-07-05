@@ -48,13 +48,15 @@ import { GeoProviderServiceProvider } from '../providers/geo-provider-service/ge
 import { BaseLinkProvider } from '../providers/base-link/base-link';
 import { UploadedMediaPostComponent } from '../components/uploaded-media-post/uploaded-media-post';
 import { ErrorLogServiceProvider } from '../providers/error-log-service/error-log-service';
+import { FacebookApiProvider } from '../providers/facebook-api/facebook-api';
+import {EventFeedPage} from '../pages/event-feed/event-feed';
 
 
 
 
 const cloudSettings: CloudSettings = {
   'core': {
-    'app_id': '70dce2c1'
+    'app_id': 'bb16c680'
   },
   'auth': {
     'facebook': {
@@ -88,7 +90,8 @@ const cloudSettings: CloudSettings = {
     MyCommunitiesPage,
     CommunityItemComponent,
     SettingsPage,
-    UploadedMediaPostComponent
+    UploadedMediaPostComponent,
+    EventFeedPage
   ],
   imports: [
     BrowserModule,
@@ -114,7 +117,8 @@ const cloudSettings: CloudSettings = {
     UserLocation,
     MyCommunitiesPage,
     CommunityItemComponent,
-    SettingsPage
+    SettingsPage,
+    EventFeedPage
   ],
   providers: [
     StatusBar,
@@ -125,7 +129,8 @@ const cloudSettings: CloudSettings = {
     GeoProviderServiceProvider,
     BaseLinkProvider,
     ErrorLogServiceProvider,
-    Facebook
+    Facebook,
+    FacebookApiProvider
   ]
 })
 export class AppModule { }
